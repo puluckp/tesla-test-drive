@@ -1,4 +1,9 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Tesla Model Y – Test Drive</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; }
@@ -121,6 +126,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .sel-summary { background: #fef5f3; border-radius: 8px; padding: 8px 12px; margin: 12px 20px 0; font-size: 12px; color: #b0451e; display: none; align-items: center; gap: 8px; }
 .sel-summary.show { display: flex; }
 </style>
+</head>
+<body>
 
 <div class="page">
   <div class="topbar">
@@ -383,3 +390,5 @@ function goStep3(){const n=document.getElementById('userName').value.trim();cons
 function backStep2(){document.getElementById('step3').style.display='none';document.getElementById('step2').style.display='block';}
 function confirmBooking(){const ds=months[selDate.m]+' '+selDate.d+', '+selDate.y;document.getElementById('sDate').textContent=ds+' at '+selTime;document.getElementById('sLoc').textContent=selLoc;document.getElementById('bookingId').textContent='TD'+Math.floor(Math.random()*900000+100000);document.getElementById('step3').style.display='none';document.getElementById('stepSuccess').style.display='block';}
 </script>
+</body>
+</html>
