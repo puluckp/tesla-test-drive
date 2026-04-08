@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Tesla Model Y – CarDekho</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#e63312;
+  --red-bg:#fff5f3;
+  --red-mid:#fde8e3;
+  --border:#ebebeb;
+  --green:#16a34a;
+  --green-bg:#f0fdf4;
+}
+body{font-family:'Outfit',sans-serif;background:#f0f0f0;-webkit-font-smoothing:antialiased;}
+.page{max-width:430px;margin:0 auto;background:#fff;min-height:100vh;}
+
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
+.logo{font-size:19px;font-weight:700;letter-spacing:-0.5px;color:#111;}
+.logo em{color:var(--red);font-style:normal;}
+.topbar-icons{display:flex;gap:14px;}
+.topbar-icons svg{width:22px;height:22px;fill:none;stroke:#333;stroke-width:1.8;}
+
+/* ── NAV TABS ── */
+.nav-tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex-shrink:0;padding:11px 16px;font-size:12px;font-weight:600;color:#aaa;cursor:pointer;border-bottom:2px solid transparent;letter-spacing:0.5px;}
+.nav-tab.active{color:var(--red);border-bottom-color:var(--red);}
+
+/* ── HERO IMAGE ── */
+.car-hero{position:relative;background:#e8e8e8;}
+.car-hero img{width:100%;height:220px;object-fit:cover;display:block;}
+.hero-tag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,0.92);color:#111;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;border:1px solid rgba(0,0,0,0.08);}
+.hero-wish{position:absolute;top:10px;right:10px;width:34px;height:34px;background:rgba(255,255,255,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(0,0,0,0.06);}
+.hero-wish svg{width:16px;height:16px;fill:none;stroke:#666;stroke-width:2;}
+.img-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.5);}
+.dot.on{background:#fff;width:14px;border-radius:3px;}
+
+/* ── MEDIA CHIPS ── */
+.media-chips{display:flex;gap:6px;padding:10px 12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #f5f5f5;}
+.media-chips::-webkit-scrollbar{display:none;}
+.chip{display:flex;align-items:center;gap:4px;padding:5px 10px;border:1px solid #e4e4e4;border-radius:20px;font-size:11px;font-weight:500;color:#555;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+
+/* ── CAR INFO ── */
+.car-info{padding:14px 16px 12px;}
+.car-title{font-size:22px;font-weight:700;color:#111;letter-spacing:-0.4px;}
+.rating-row{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap;}
+.stars{color:#f59e0b;font-size:13px;}
+.rnum{font-size:14px;font-weight:700;color:#111;}
+.rct{font-size:12px;color:#aaa;}
+.rate-pill{background:#fff8e1;color:#92400e;font-size:10px;font-weight:600;padding:3px 8px;border-radius:10px;border:1px solid #fde68a;}
+.share{margin-left:auto;cursor:pointer;}
+.share svg{width:18px;height:18px;fill:none;stroke:#aaa;stroke-width:1.8;}
+.price-block{margin-top:10px;}
+.price-main{font-size:21px;font-weight:700;color:#111;letter-spacing:-0.5px;}
+.price-cta{display:inline-block;font-size:13px;color:var(--red);font-weight:600;margin-left:10px;cursor:pointer;}
+.ex-show{font-size:11px;color:#bbb;margin-top:3px;}
+.ex-show a{color:var(--red);text-decoration:none;}
+
+/* ── CTA ROW ── */
+.cta-row{padding:8px 16px 12px;display:flex;gap:10px;}
+.btn-offers{flex:1;background:var(--red);color:#fff;border:none;padding:13px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+.btn-wa{width:46px;height:46px;background:#25D366;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.btn-wa svg{width:22px;height:22px;fill:#fff;}
+
+/* ── FESTIVE ── */
+.fest{margin:0 16px 14px;background:linear-gradient(90deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:10px;padding:9px 14px;font-size:12px;color:#92400e;font-weight:500;display:flex;align-items:center;gap:6px;}
+
+/* ══════════════════════════════════
+   TEST DRIVE WIDGET — V4 TRIGGER
+   ══════════════════════════════════ */
+@keyframes borderShimmer{
+  0%,100%{border-color:#ebebeb;}
+  50%{border-color:#fca89a;}
+}
+@keyframes arrowBounce{
+  0%,100%{transform:translateY(0);}
+  40%{transform:translateY(3px);}
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.4;transform:scale(0.8);}
+}
+
+.td-wrap{
+  margin:0 16px 16px;
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  animation:borderShimmer 3s ease-in-out 1s 3;
+}
+
+/* trigger row */
+.td-trigger{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;background:#fff;transition:background .2s;user-select:none;}
+.td-trigger:hover{background:#fafafa;}
+.td-icon-wrap{width:40px;height:40px;border-radius:10px;background:var(--red-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.td-icon-wrap svg{width:20px;height:20px;stroke:var(--red);fill:none;stroke-width:2;}
+.td-text{flex:1;}
+.td-title{font-size:14px;font-weight:700;color:#111;}
+.td-sub{font-size:11px;color:#aaa;margin-top:2px;}
+
+/* FREE badge */
+.td-free-badge{display:inline-flex;align-items:center;background:var(--green-bg);color:var(--green);font-size:9px;font-weight:700;letter-spacing:0.5px;padding:2px 7px;border-radius:20px;border:1px solid #bbf7d0;margin-left:6px;position:relative;top:-1px;flex-shrink:0;}
+.td-free-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);margin-right:4px;animation:pulse 2s ease-in-out infinite;}
+
+/* social proof line */
+.td-social{display:flex;align-items:center;gap:5px;margin-top:5px;}
+.td-social-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.td-social-text{font-size:11px;color:#666;font-weight:500;}
+.td-social-text b{color:#111;font-weight:700;}
+
+/* chevron */
+.td-arrow{width:28px;height:28px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:arrowBounce 0.6s ease-in-out 1.5s 2;}
+.td-arrow svg{width:14px;height:14px;fill:none;stroke:#888;stroke-width:2.5;}
+
+/* ══════════════════════════════════
+   BOTTOM SHEET MODAL — V3 DESIGN
+   ══════════════════════════════════ */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:flex-end;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding-bottom:28px;}
+.modal-handle{width:40px;height:4px;background:#ddd;border-radius:2px;margin:12px auto 0;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px;}
+.modal-title{font-size:18px;font-weight:700;color:#111;}
+.modal-close{width:32px;height:32px;background:#f0f0f0;border:none;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#555;}
+.modal-subtitle{font-size:13px;color:#888;padding:0 20px 16px;}
+
+/* step indicator */
+.step-indicator{display:flex;align-items:center;padding:0 20px 20px;}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.step-dot.active{background:var(--red);color:#fff;}
+.step-dot.done{background:#4CAF50;color:#fff;}
+.step-dot.inactive{background:#eee;color:#aaa;}
+.step-line{flex:1;height:2px;background:#eee;}
+.step-line.done{background:#4CAF50;}
+
+/* step 0 — location */
+.loc-section{padding:0 20px;}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px;}
+.loc-card{padding:12px 14px;border:1.5px solid #e0e0e0;border-radius:10px;cursor:pointer;transition:all .18s;}
+.loc-card:hover{border-color:#fca89a;}
+.loc-card.selected{border-color:var(--red);background:var(--red-bg);}
+.loc-card-icon{font-size:18px;margin-bottom:6px;}
+.loc-card-name{font-size:13px;font-weight:600;color:#111;}
+.loc-card.selected .loc-card-name{color:var(--red);}
+.loc-card-addr{font-size:11px;color:#888;margin-top:2px;}
+.loc-card-dist{font-size:10px;color:#bbb;margin-top:3px;font-weight:500;}
+.loc-card.selected .loc-card-dist{color:#e8886e;}
+
+/* step 1 — calendar */
+.cal-section{padding:0 20px;}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.cal-month{font-size:16px;font-weight:600;color:#111;}
+.cal-nav-btn{width:32px;height:32px;background:#f5f5f5;border:none;border-radius:50%;font-size:16px;cursor:pointer;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
+.cal-day-label{font-size:11px;color:#999;font-weight:600;padding:4px 0;}
+.cal-day{padding:8px 4px;font-size:13px;color:#333;cursor:pointer;border-radius:8px;border:none;background:none;width:100%;}
+.cal-day:hover:not(.disabled):not(.empty){background:var(--red-bg);color:var(--red);}
+.cal-day.selected{background:var(--red);color:#fff;font-weight:600;border-radius:50%;}
+.cal-day.today{font-weight:700;color:var(--red);}
+.cal-day.disabled{color:#ccc;cursor:not-allowed;}
+.cal-day.empty{cursor:default;}
+
+/* time slots */
+.time-section{padding:20px 20px 0;}
+.time-label{font-size:13px;font-weight:600;color:#111;margin-bottom:12px;}
+.time-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.time-slot{padding:10px 6px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;color:#444;cursor:pointer;text-align:center;background:#fff;font-family:inherit;transition:all .18s;position:relative;}
+.time-slot:hover:not(.unavailable){border-color:var(--red);color:var(--red);}
+.time-slot.selected{background:var(--red);color:#fff;border-color:var(--red);font-weight:600;}
+.time-slot.unavailable{background:#f8f8f8;color:#bbb;cursor:not-allowed;text-decoration:line-through;}
+.time-slot .avail-dot{position:absolute;top:4px;right:5px;width:4px;height:4px;border-radius:50%;background:var(--green);}
+
+/* sel summary */
+.sel-summary{background:var(--red-bg);border-radius:8px;padding:8px 12px;margin:12px 20px 0;font-size:12px;color:#b0451e;display:none;align-items:center;gap:8px;}
+.sel-summary.show{display:flex;}
+
+/* step 2 — details */
+.detail-section{padding:0 20px;}
+.input-group{margin-bottom:14px;}
+.input-label{font-size:11px;color:#888;font-weight:600;margin-bottom:5px;display:block;letter-spacing:0.3px;}
+.input-field{width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;color:#111;outline:none;font-family:inherit;transition:border-color .2s;}
+.input-field:focus{border-color:var(--red);}
+
+/* step 3 — confirm */
+.confirm-section{padding:0 20px;}
+.confirm-car{display:flex;gap:12px;align-items:center;background:#f9f9f9;border-radius:12px;padding:14px;margin-bottom:16px;}
+.confirm-car-img{width:80px;height:56px;border-radius:8px;object-fit:cover;background:#ddd;}
+.confirm-car-name{font-size:15px;font-weight:700;color:#111;}
+.confirm-car-price{font-size:12px;color:#888;margin-top:2px;}
+.confirm-details{background:#f9f9f9;border-radius:12px;padding:14px;}
+.confirm-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #eee;}
+.confirm-row:last-child{border-bottom:none;}
+.confirm-icon{width:32px;height:32px;background:var(--red-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.confirm-row-label{font-size:11px;color:#aaa;}
+.confirm-row-val{font-size:13px;font-weight:600;color:#111;margin-top:1px;}
+.confirm-note{font-size:11px;color:#bbb;text-align:center;margin-top:12px;}
+
+/* success */
+.success-screen{text-align:center;padding:30px 20px;}
+.success-circle{width:72px;height:72px;background:#e8f5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:36px;}
+.success-title{font-size:20px;font-weight:700;color:#111;margin-bottom:6px;}
+.success-sub{font-size:13px;color:#888;line-height:1.6;margin-bottom:20px;}
+.booking-id{background:#f5f5f5;border-radius:8px;padding:10px 16px;display:inline-block;font-size:13px;color:#555;margin-bottom:20px;}
+.booking-id span{font-weight:700;color:#111;}
+.add-calendar-btn{width:100%;padding:12px;border:1.5px solid var(--red);background:#fff;color:var(--red);border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;font-family:inherit;}
+.done-btn{width:100%;padding:13px;background:var(--red);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+
+/* modal footer */
+.modal-footer{padding:16px 20px 0;display:flex;gap:10px;}
+.btn-back{flex:0 0 auto;padding:13px 20px;background:#f5f5f5;border:none;border-radius:8px;font-size:14px;font-weight:600;color:#555;cursor:pointer;font-family:inherit;}
+.btn-next{flex:1;background:var(--red);color:#fff;border:none;padding:13px 0;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-next:disabled{background:#ddd;color:#bbb;cursor:not-allowed;}
+
+/* ── SHORTS ── */
+.sec-title{font-size:15px;font-weight:700;color:#111;padding:18px 16px 10px;}
+.shorts-row{display:flex;gap:10px;padding:0 16px 24px;overflow-x:auto;scrollbar-width:none;}
+.shorts-row::-webkit-scrollbar{display:none;}
+.short-card{flex-shrink:0;width:120px;cursor:pointer;}
+.short-thumb{width:120px;height:80px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.play-btn{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;}
+.play-btn svg{width:12px;height:12px;fill:#333;margin-left:2px;}
+.short-lbl{font-size:11px;color:#666;margin-top:6px;line-height:1.4;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo"><em>Car</em>Dekho</div>
+    <div class="topbar-icons">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><circle cx="19.5" cy="4.5" r="2.5" fill="var(--red)" stroke="none"/></svg>
+    </div>
+  </div>
+
+  <!-- NAV TABS -->
+  <div class="nav-tabs">
+    <div class="nav-tab active">MODEL Y</div>
+    <div class="nav-tab">PRICE</div>
+    <div class="nav-tab">COMPARE ▾</div>
+    <div class="nav-tab">IMAGES</div>
+    <div class="nav-tab">SPECS</div>
+    <div class="nav-tab">REVIEWS</div>
+  </div>
+
+  <!-- CAR HERO -->
+  <div class="car-hero">
+    <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=900&q=80" alt="Tesla Model Y" onerror="this.style.height='220px';this.style.background='#ddd';">
+    <div class="hero-tag">⚡ INDIA LAUNCH 2025</div>
+    <div class="hero-wish">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div class="img-dots">
+      <div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+  </div>
+
+  <!-- MEDIA CHIPS -->
+  <div class="media-chips">
+    <div class="chip">📷 83 Photos</div>
+    <div class="chip">🎨 5 Colors</div>
+    <div class="chip">✦ Ask Expert</div>
+    <div class="chip">▶ 3 Videos</div>
+    <div class="chip">🎬 Shorts</div>
+  </div>
+
+  <!-- CAR INFO -->
+  <div class="car-info">
+    <div class="car-title">Tesla Model Y</div>
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rnum">4.6</span>
+      <span class="rct">19 Reviews</span>
+      <span class="rate-pill">Rate & Win ₹1000</span>
+      <div class="share">
+        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </div>
+    </div>
+    <div class="price-block">
+      <span class="price-main">₹59.89 – 73.89 L*</span>
+      <span class="price-cta">Get On-Road Price →</span>
+    </div>
+    <div class="ex-show">*Ex-Showroom · <a href="#">New Delhi ✏️</a></div>
+  </div>
+
+  <!-- CTA ROW -->
+  <div class="cta-row">
+    <button class="btn-offers">View April Offers</button>
+    <button class="btn-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.523 5.855L0 24l6.302-1.496A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.003-1.368l-.36-.214-3.733.885.936-3.617-.235-.372A9.761 9.761 0 0 1 2.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+    </button>
+  </div>
+
+  <!-- FESTIVE -->
+  <div class="fest">🏷️ Hurry up to lock festive offers before they expire!</div>
+
+  <!-- ══════════════════════════════════
+       TEST DRIVE WIDGET TRIGGER (V4)
+       ══════════════════════════════════ -->
+  <div class="td-wrap">
+    <div class="td-trigger" onclick="openModal()">
+      <div class="td-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M3 17h2l1.5-5h11L19 17h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M6.5 12l1.5-5h8l1.5 5"/></svg>
+      </div>
+      <div class="td-text">
+        <div class="td-title">Book a Test Drive <span class="td-free-badge">FREE</span></div>
+        <div class="td-sub">Showroom or home · Takes 30 seconds</div>
+        <div class="td-social">
+          <div class="td-social-dot"></div>
+          <div class="td-social-text"><b id="socialCount">47</b> people booked in Gurugram this week</div>
+        </div>
+      </div>
+      <div class="td-arrow">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHORTS -->
+  <div class="sec-title">Model Y — 30-second stories</div>
+  <div class="shorts-row">
+    <div class="short-card">
+      <div class="short-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      </div>
+      <div class="short-lbl">Tesla's India launch — what you need to know</div>
+    </div>
+    <div class="short-card">
+      <div class="short-thumb" style="background:linear-gradient(135deg,#0f3460,#533483);">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      </div>
+      <div class="short-lbl">Model Y vs the competition</div>
+    </div>
+    <div class="short-card">
+      <div class="short-thumb" style="background:linear-gradient(135deg,#1a3a1a,#0f3a0f);">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      </div>
+      <div class="short-lbl">₹60L EV — is it worth it?</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ══════════════════════════════════
+     BOTTOM SHEET MODAL (V3 design)
+     4 steps: Location → Date/Time → Details → Confirm → Success
+     ══════════════════════════════════ -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-handle"></div>
+
+    <!-- STEP 0: LOCATION -->
+    <div id="step0">
+      <div class="modal-header">
+        <div class="modal-title">Book Test Drive</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle">Tesla Model Y · Where would you like to drive?</div>
+      <div class="step-indicator">
+        <div class="step-dot active">1</div><div class="step-line"></div>
+        <div class="step-dot inactive">2</div><div class="step-line"></div>
+        <div class="step-dot inactive">3</div><div class="step-line"></div>
+        <div class="step-dot inactive">4</div>
+      </div>
+      <div class="loc-section">
+        <div class="loc-grid">
+          <div class="loc-card" onclick="pickLoc(this,'Tesla Showroom, Gurugram',47,'Gurugram')">
+            <div class="loc-card-icon">🏢</div>
+            <div class="loc-card-name">Gurugram</div>
+            <div class="loc-card-addr">DLF Cyber City, Sector 25</div>
+            <div class="loc-card-dist">4.2 km away</div>
+          </div>
+          <div class="loc-card" onclick="pickLoc(this,'Tesla Showroom, Connaught Place',63,'Delhi')">
+            <div class="loc-card-icon">🏛️</div>
+            <div class="loc-card-name">Connaught Pl.</div>
+            <div class="loc-card-addr">N-Block, CP, New Delhi</div>
+            <div class="loc-card-dist">18 km away</div>
+          </div>
+          <div class="loc-card" onclick="pickLoc(this,'Tesla Showroom, Aerocity',31,'Aerocity')">
+            <div class="loc-card-icon">✈️</div>
+            <div class="loc-card-name">Aerocity</div>
+            <div class="loc-card-addr">IGI Airport Zone, Delhi</div>
+            <div class="loc-card-dist">22 km away</div>
+          </div>
+          <div class="loc-card" onclick="pickLoc(this,'My Home – Doorstep Drive',28,'your area')">
+            <div class="loc-card-icon">🏠</div>
+            <div class="loc-card-name">At My Home</div>
+            <div class="loc-card-addr">We'll come to you</div>
+            <div class="loc-card-dist">Doorstep · Free</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-next" id="btnNext0" onclick="goStep1()" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 1: DATE + TIME -->
+    <div id="step1" style="display:none">
+      <div class="modal-header">
+        <div class="modal-title">Pick Date & Time</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle" id="step1Sub">Tesla Model Y · Select date & slot</div>
+      <div class="step-indicator">
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot active">2</div><div class="step-line"></div>
+        <div class="step-dot inactive">3</div><div class="step-line"></div>
+        <div class="step-dot inactive">4</div>
+      </div>
+      <div class="cal-section">
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="prevMonth()">‹</button>
+          <div class="cal-month" id="calMonth"></div>
+          <button class="cal-nav-btn" onclick="nextMonth()">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <div class="time-section">
+        <div class="time-label" id="timeLabel">Available slots</div>
+        <div class="time-grid" id="timeGrid"></div>
+      </div>
+      <div class="sel-summary" id="sel1"><span>📅</span><span id="sel1text"></span></div>
+      <div class="modal-footer">
+        <button class="btn-back" onclick="backStep0()">← Back</button>
+        <button class="btn-next" id="btnNext1" onclick="goStep2()" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: DETAILS -->
+    <div id="step2" style="display:none">
+      <div class="modal-header">
+        <div class="modal-title">Your Details</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle">Almost done — just a few details</div>
+      <div class="step-indicator">
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot active">3</div><div class="step-line"></div>
+        <div class="step-dot inactive">4</div>
+      </div>
+      <div class="detail-section">
+        <div class="input-group">
+          <label class="input-label">FULL NAME</label>
+          <input class="input-field" id="userName" type="text" placeholder="Enter your name">
+        </div>
+        <div class="input-group">
+          <label class="input-label">MOBILE NUMBER</label>
+          <input class="input-field" id="userPhone" type="tel" placeholder="+91 98XXXXXXXX">
+        </div>
+        <div class="input-group">
+          <label class="input-label">EMAIL (optional)</label>
+          <input class="input-field" id="userEmail" type="email" placeholder="you@email.com">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-back" onclick="backStep1()">← Back</button>
+        <button class="btn-next" onclick="goStep3()">Review Booking →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: CONFIRM -->
+    <div id="step3" style="display:none">
+      <div class="modal-header">
+        <div class="modal-title">Confirm Booking</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle">Review your test drive details</div>
+      <div class="step-indicator">
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot active">4</div>
+      </div>
+      <div class="confirm-section">
+        <div class="confirm-car">
+          <div class="confirm-car-img" style="background:#e8e8e8;display:flex;align-items:center;justify-content:center;font-size:24px;">🚗</div>
+          <div>
+            <div class="confirm-car-name">Tesla Model Y</div>
+            <div class="confirm-car-price">₹59.89 – 73.89 Lakh · Test Drive</div>
+          </div>
+        </div>
+        <div class="confirm-details">
+          <div class="confirm-row"><div class="confirm-icon">📍</div><div><div class="confirm-row-label">Location</div><div class="confirm-row-val" id="cfLoc">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">📅</div><div><div class="confirm-row-label">Date</div><div class="confirm-row-val" id="cfDate">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">🕐</div><div><div class="confirm-row-label">Time</div><div class="confirm-row-val" id="cfTime">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">👤</div><div><div class="confirm-row-label">Name</div><div class="confirm-row-val" id="cfName">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">📱</div><div><div class="confirm-row-label">Mobile</div><div class="confirm-row-val" id="cfPhone">—</div></div></div>
+        </div>
+        <div class="confirm-note">By confirming, you agree to be contacted by Tesla/CarDekho</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-back" onclick="backStep2()">← Edit</button>
+        <button class="btn-next" onclick="confirmBooking()">✓ Confirm Booking</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="stepSuccess" style="display:none">
+      <div class="success-screen">
+        <div class="success-circle">✓</div>
+        <div class="success-title">Test Drive Booked!</div>
+        <div class="success-sub">Your slot is confirmed. You'll receive an SMS & call shortly.</div>
+        <div class="booking-id">Booking ID: <span id="bookingId"></span></div>
+        <div class="confirm-details" style="text-align:left;margin-bottom:20px;">
+          <div class="confirm-row"><div class="confirm-icon">📍</div><div><div class="confirm-row-label">Location</div><div class="confirm-row-val" id="sLoc">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">📅</div><div><div class="confirm-row-label">Date & Time</div><div class="confirm-row-val" id="sDate">—</div></div></div>
+        </div>
+        <button class="add-calendar-btn">+ Add to Calendar</button>
+        <button class="done-btn" onclick="closeModal()">Done</button>
+      </div>
+    </div>
+
+  </div><!-- /modal -->
+</div><!-- /modal-bg -->
+
+<script>
+// ── STATE ──
+let selDate=null, selTime=null, selLoc='', selLocCity='Gurugram', selLocCount=47;
+let curYear, curMonth;
+const today = new Date();
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+const TIMES = [
+  {t:'10:00 AM',a:true},{t:'10:30 AM',a:true},{t:'11:00 AM',a:false},
+  {t:'11:30 AM',a:true},{t:'12:00 PM',a:true},{t:'12:30 PM',a:false},
+  {t:'02:00 PM',a:true},{t:'02:30 PM',a:true},{t:'03:00 PM',a:true},
+  {t:'04:00 PM',a:false},{t:'04:30 PM',a:true},{t:'05:00 PM',a:true}
+];
+const STEPS = ['step0','step1','step2','step3','stepSuccess'];
+
+function showOnly(id){ STEPS.forEach(s => document.getElementById(s).style.display = s===id ? 'block' : 'none'); }
+
+// ── OPEN / CLOSE ──
+function openModal(){
+  document.getElementById('modalBg').classList.add('open');
+  document.body.style.overflow='hidden';
+  showOnly('step0');
+  // reset
+  selDate=null; selTime=null; selLoc=''; selLocCity='Gurugram';
+  document.querySelectorAll('.loc-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('btnNext0').disabled=true;
+  initCal();
+}
+function closeModal(){
+  document.getElementById('modalBg').classList.remove('open');
+  document.body.style.overflow='';
+  // update widget social proof if location was picked
+  if(selLocCity){
+    document.getElementById('socialCount').textContent=selLocCount;
+    document.querySelector('.td-social-text').innerHTML=`<b id="socialCount">${selLocCount}</b> people booked in ${selLocCity} this week`;
+  }
+}
+
+// ── LOCATION STEP ──
+function pickLoc(card, loc, count, city){
+  document.querySelectorAll('.loc-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  selLoc=loc; selLocCity=city; selLocCount=count;
+  document.getElementById('btnNext0').disabled=false;
+}
+function goStep1(){
+  document.getElementById('step1Sub').textContent='Tesla Model Y · '+selLoc;
+  showOnly('step1');
+}
+function backStep0(){ showOnly('step0'); }
+
+// ── CALENDAR ──
+function initCal(){ curYear=today.getFullYear(); curMonth=today.getMonth(); renderCal(); }
+function renderCal(){
+  const g=document.getElementById('calGrid');
+  document.getElementById('calMonth').textContent=MONTHS[curMonth]+' '+curYear;
+  g.innerHTML=DAYS.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
+  const first=new Date(curYear,curMonth,1).getDay();
+  const dim=new Date(curYear,curMonth+1,0).getDate();
+  for(let i=0;i<first;i++) g.innerHTML+=`<button class="cal-day empty"></button>`;
+  for(let d=1;d<=dim;d++){
+    const dt=new Date(curYear,curMonth,d);
+    const past=dt<new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const sun=dt.getDay()===0;
+    const isTod=d===today.getDate()&&curMonth===today.getMonth()&&curYear===today.getFullYear();
+    const isSel=selDate&&selDate.d===d&&selDate.m===curMonth&&selDate.y===curYear;
+    let cls='cal-day';
+    if(past||sun) cls+=' disabled';
+    if(isTod) cls+=' today';
+    if(isSel) cls+=' selected';
+    g.innerHTML+=`<button class="${cls}" ${(past||sun)?'disabled':''} onclick="pickDate(${d},${curMonth},${curYear})">${d}</button>`;
+  }
+}
+function prevMonth(){ curMonth--; if(curMonth<0){curMonth=11;curYear--;} renderCal(); }
+function nextMonth(){ curMonth++; if(curMonth>11){curMonth=0;curYear++;} renderCal(); }
+function pickDate(d,m,y){
+  selDate={d,m,y}; selTime=null; renderCal();
+  document.getElementById('timeLabel').textContent='Slots for '+MONTHS[m]+' '+d+', '+y;
+  renderTimes(); updateNext1();
+}
+function renderTimes(){
+  document.getElementById('timeGrid').innerHTML=TIMES.map((t,i)=>
+    `<button class="time-slot${!t.a?' unavailable':''}" ${!t.a?'disabled':''} onclick="pickTime(${i})">
+      ${t.t}${t.a?'<div class="avail-dot"></div>':''}
+    </button>`).join('');
+}
+function pickTime(i){
+  if(!TIMES[i].a) return;
+  selTime=TIMES[i].t;
+  document.querySelectorAll('.time-slot').forEach((el,idx)=>el.classList.toggle('selected',idx===i));
+  updateNext1();
+}
+function updateNext1(){
+  const btn=document.getElementById('btnNext1');
+  const sum=document.getElementById('sel1');
+  if(selDate&&selTime){
+    btn.disabled=false;
+    document.getElementById('sel1text').textContent=MONTHS[selDate.m]+' '+selDate.d+', '+selDate.y+' at '+selTime;
+    sum.classList.add('show');
+  } else {
+    btn.disabled=true;
+    sum.classList.remove('show');
+  }
+}
+
+// ── DETAILS STEP ──
+function goStep2(){ showOnly('step2'); }
+function backStep1(){ showOnly('step1'); }
+
+// ── CONFIRM STEP ──
+function goStep3(){
+  const n=document.getElementById('userName').value.trim();
+  const p=document.getElementById('userPhone').value.trim();
+  if(!n||!p){ alert('Please enter your name and mobile number.'); return; }
+  const ds=MONTHS[selDate.m]+' '+selDate.d+', '+selDate.y;
+  document.getElementById('cfLoc').textContent=selLoc;
+  document.getElementById('cfDate').textContent=ds;
+  document.getElementById('cfTime').textContent=selTime;
+  document.getElementById('cfName').textContent=n;
+  document.getElementById('cfPhone').textContent=p;
+  showOnly('step3');
+}
+function backStep2(){ showOnly('step2'); }
+
+// ── CONFIRM BOOKING ──
+function confirmBooking(){
+  const ds=MONTHS[selDate.m]+' '+selDate.d+', '+selDate.y;
+  document.getElementById('sLoc').textContent=selLoc;
+  document.getElementById('sDate').textContent=ds+' at '+selTime;
+  document.getElementById('bookingId').textContent='TD'+Math.floor(Math.random()*900000+100000);
+  showOnly('stepSuccess');
+}
+
+// close on backdrop tap
+document.getElementById('modalBg').addEventListener('click', function(e){
+  if(e.target===this) closeModal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; }
+.page { max-width: 430px; margin: 0 auto; background: #fff; min-height: 100vh; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: #fff; border-bottom: 1px solid #eee; }
+.topbar-logo { height: 36px; object-fit: contain; }
+.topbar-icons { display: flex; gap: 16px; }
+.topbar-icons svg { width: 22px; height: 22px; fill: none; stroke: #333; stroke-width: 1.8; }
+.nav-tabs { display: flex; overflow-x: auto; border-bottom: 1px solid #eee; background: #fff; scrollbar-width: none; }
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab { flex-shrink: 0; padding: 12px 16px; font-size: 13px; font-weight: 600; color: #666; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+.nav-tab.active { color: #e63312; border-bottom-color: #e63312; }
+.car-image-wrap { position: relative; background: #f0f0f0; }
+.car-image-wrap img { width: 100%; height: 230px; object-fit: cover; display: block; }
+.wishlist-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; background: rgba(255,255,255,0.92); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.wishlist-btn svg { width: 18px; height: 18px; fill: none; stroke: #666; stroke-width: 1.8; }
+.next-arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: rgba(255,255,255,0.85); border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.next-arrow svg { width: 14px; height: 14px; fill: none; stroke: #555; stroke-width: 2; }
+.media-chips { display: flex; gap: 8px; padding: 10px 12px; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #f0f0f0; }
+.media-chips::-webkit-scrollbar { display: none; }
+.chip { display: flex; align-items: center; gap: 5px; padding: 5px 10px; border: 1px solid #e0e0e0; border-radius: 20px; font-size: 12px; color: #444; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.car-info { padding: 14px 16px 10px; background: #fff; }
+.car-title { font-size: 22px; font-weight: 700; color: #111; }
+.rating-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.stars { color: #f5a623; font-size: 14px; }
+.rating-count { font-size: 13px; color: #555; }
+.rate-win { background: #fff8e1; color: #f5a623; font-size: 11px; padding: 2px 8px; border-radius: 10px; border: 1px solid #f5a623; }
+.share-icon { margin-left: auto; }
+.share-icon svg { width: 20px; height: 20px; fill: none; stroke: #555; stroke-width: 1.8; }
+.price { font-size: 20px; font-weight: 700; color: #111; margin-top: 10px; }
+.price span { font-size: 14px; color: #e63312; font-weight: 600; margin-left: 8px; }
+.ex-showroom { font-size: 12px; color: #888; margin-top: 2px; }
+.ex-showroom a { color: #e63312; text-decoration: none; }
+.cta-row { padding: 10px 16px; background: #fff; display: flex; gap: 10px; align-items: center; }
+.btn-primary { flex: 1; background: #e63312; color: #fff; border: none; padding: 13px 0; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.btn-whatsapp { width: 46px; height: 46px; background: #25D366; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+.btn-whatsapp svg { width: 24px; height: 24px; fill: #fff; }
+.festive-banner { margin: 0 16px 12px; background: #fff9f0; border: 1px solid #fde8c8; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #b55a00; }
+.test-drive-section { margin: 0 16px 16px; border: 1.5px solid #e63312; border-radius: 12px; overflow: hidden; }
+.test-drive-header { background: #fef5f3; padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+.td-header-text { font-size: 13px; font-weight: 600; color: #e63312; }
+.td-header-sub { font-size: 11px; color: #b0451e; }
+.btn-test-drive { width: 100%; background: #e63312; color: #fff; border: none; padding: 13px 0; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.section-title { font-size: 16px; font-weight: 700; color: #111; padding: 16px 16px 10px; }
+.shorts-row { display: flex; gap: 10px; padding: 0 16px 16px; overflow-x: auto; scrollbar-width: none; }
+.shorts-row::-webkit-scrollbar { display: none; }
+.short-card { flex-shrink: 0; width: 130px; }
+.short-thumb { width: 130px; height: 90px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.play-btn { width: 32px; height: 32px; background: rgba(255,255,255,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.play-btn svg { width: 14px; height: 14px; fill: #333; margin-left: 2px; }
+.short-label { font-size: 11px; color: #444; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: flex-end; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal { background: #fff; border-radius: 20px 20px 0 0; width: 100%; max-width: 430px; max-height: 90vh; overflow-y: auto; padding-bottom: 24px; }
+.modal-handle { width: 40px; height: 4px; background: #ddd; border-radius: 2px; margin: 12px auto 0; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 8px; }
+.modal-title { font-size: 18px; font-weight: 700; color: #111; }
+.modal-close { width: 32px; height: 32px; background: #f0f0f0; border: none; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #555; }
+.modal-subtitle { font-size: 13px; color: #888; padding: 0 20px 16px; }
+.step-indicator { display: flex; align-items: center; padding: 0 20px 20px; }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+.step-dot.active { background: #e63312; color: #fff; }
+.step-dot.done { background: #4CAF50; color: #fff; }
+.step-dot.inactive { background: #eee; color: #aaa; }
+.step-line { flex: 1; height: 2px; background: #eee; }
+.step-line.done { background: #4CAF50; }
+.cal-section { padding: 0 20px; }
+.cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.cal-month { font-size: 16px; font-weight: 600; color: #111; }
+.cal-nav-btn { width: 32px; height: 32px; background: #f5f5f5; border: none; border-radius: 50%; font-size: 16px; cursor: pointer; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+.cal-day-label { font-size: 11px; color: #999; font-weight: 600; padding: 4px 0; }
+.cal-day { padding: 8px 4px; font-size: 13px; color: #333; cursor: pointer; border-radius: 8px; border: none; background: none; }
+.cal-day:hover:not(.disabled):not(.empty) { background: #fef0ed; color: #e63312; }
+.cal-day.selected { background: #e63312; color: #fff; font-weight: 600; border-radius: 50%; }
+.cal-day.today { font-weight: 700; color: #e63312; }
+.cal-day.disabled { color: #ccc; cursor: not-allowed; }
+.cal-day.empty { cursor: default; }
+.time-section { padding: 20px 20px 0; }
+.time-label { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 12px; }
+.time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.time-slot { padding: 10px 6px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 13px; color: #444; cursor: pointer; text-align: center; background: #fff; }
+.time-slot:hover:not(.unavailable) { border-color: #e63312; color: #e63312; }
+.time-slot.selected { background: #e63312; color: #fff; border-color: #e63312; font-weight: 600; }
+.time-slot.unavailable { background: #f8f8f8; color: #bbb; cursor: not-allowed; text-decoration: line-through; }
+.detail-section { padding: 0 20px; }
+.input-group { margin-bottom: 14px; }
+.input-label { font-size: 12px; color: #888; font-weight: 600; margin-bottom: 5px; display: block; letter-spacing: 0.3px; }
+.input-field { width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; color: #111; outline: none; }
+.input-field:focus { border-color: #e63312; }
+.location-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.loc-card { padding: 10px 12px; border: 1.5px solid #e0e0e0; border-radius: 8px; cursor: pointer; }
+.loc-card.selected { border-color: #e63312; background: #fef5f3; }
+.loc-card-name { font-size: 13px; font-weight: 600; color: #111; }
+.loc-card-addr { font-size: 11px; color: #888; margin-top: 2px; }
+.loc-card.selected .loc-card-name { color: #e63312; }
+.confirm-section { padding: 0 20px; }
+.confirm-car { display: flex; gap: 12px; align-items: center; background: #f9f9f9; border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+.confirm-car-img { width: 80px; height: 56px; border-radius: 8px; object-fit: cover; }
+.confirm-car-name { font-size: 15px; font-weight: 700; color: #111; }
+.confirm-car-price { font-size: 12px; color: #888; margin-top: 2px; }
+.confirm-details { background: #f9f9f9; border-radius: 12px; padding: 14px; }
+.confirm-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #eee; }
+.confirm-row:last-child { border-bottom: none; }
+.confirm-icon { width: 32px; height: 32px; background: #fef0ed; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.confirm-row-label { font-size: 12px; color: #888; }
+.confirm-row-val { font-size: 14px; font-weight: 600; color: #111; margin-top: 1px; }
+.success-screen { text-align: center; padding: 30px 20px; }
+.success-circle { width: 72px; height: 72px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 36px; }
+.success-title { font-size: 20px; font-weight: 700; color: #111; margin-bottom: 6px; }
+.success-sub { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
+.booking-id { background: #f5f5f5; border-radius: 8px; padding: 10px 16px; display: inline-block; font-size: 13px; color: #555; margin-bottom: 20px; }
+.booking-id span { font-weight: 700; color: #111; }
+.add-calendar-btn { width: 100%; padding: 12px; border: 1.5px solid #e63312; background: #fff; color: #e63312; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
+.done-btn { width: 100%; padding: 13px; background: #e63312; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.modal-footer { padding: 16px 20px 0; display: flex; gap: 10px; }
+.btn-back { flex: 0 0 auto; padding: 13px 20px; background: #f5f5f5; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; color: #555; cursor: pointer; }
+.btn-next { flex: 1; background: #e63312; color: #fff; border: none; padding: 13px 0; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.btn-next:disabled { background: #ccc; cursor: not-allowed; }
+.sel-summary { background: #fef5f3; border-radius: 8px; padding: 8px 12px; margin: 12px 20px 0; font-size: 12px; color: #b0451e; display: none; align-items: center; gap: 8px; }
+.sel-summary.show { display: flex; }
+</style>
+
+<div class="page">
+  <div class="topbar">
+    <img class="topbar-logo" src="data:image/jpeg;base64,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" alt="CarDekho">
+    <div class="topbar-icons">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><circle cx="19.5" cy="4.5" r="2.5" fill="#e63312" stroke="none"/></svg>
+    </div>
+  </div>
+
+  <div class="nav-tabs">
+    <div class="nav-tab active">MODEL Y</div>
+    <div class="nav-tab">PRICE</div>
+    <div class="nav-tab">COMPARE ▾</div>
+    <div class="nav-tab">IMAGES</div>
+    <div class="nav-tab">SPECS</div>
+    <div class="nav-tab">REVIEWS</div>
+  </div>
+
+  <div class="car-image-wrap">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/wAARCAGCArADASIAAhEBAxEB/8QAHQABAAEFAQEBAAAAAAAAAAAAAAQCAwUGBwEICf/EAE0QAAEDAwEDBgoGBggGAwEBAAEAAgMEBREGEiExBxNBUWFxFBUiMkJUgZGS0QgzUoOhsiNDU4KxwRZVYnKTlMLSJDREY3PhNeLwovH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQID/8QAIBEBAQEAAQQDAQEAAAAAAAAAAAERMQIDElITIZEUQf/aAAwDAQACEQMRAD8A+pZaqopojzEmxtTOzuBzhjOtRjdbj6wfhb8lXW/VD/zP/JGoZAW0nCR41uHrB+EfJWausnrITDV81URE5LJYWubnuIVGyE2QpZLy1LZdiL4LQ/1Zbv8AJRf7U8Fof6st3+Si/wBqlbITZCx8Pb9Z+Ov9Pe97+1F8Fof6st3+Si/2p4LQ/wBWW7/JRf7VK2QmyE+Ht+s/D+nve9/ai+C0P9WW7/JRf7U8Fof6st3+Si/2qVshNkJ8Pb9Z+H9Pe97+1F8Fof6st3+Si/2p4LQ/1Zbv8lF/tUrZCbIT4e36z8P6e9739qL4LQ/1Zbv8lF/tTwWh/qy3f5KL/apWyE2Qnw9v1n4f0973v7UXwWh/qy3f5KL/AGp4LQ/1Zbv8lF/tUrZCbIT4e36z8P6e9739q7TV9VTQNgp3MhiZuayOJrWjuACueNrh6wfhHyUbZCbIW5JHK227UnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfG1w9YPwj5J42uHrB+EfJRtkJshMEnxtcPWD8I+SeNrh6wfhHyUbZCbITBJ8bXD1g/CPknja4esH4R8lG2QmyEwSfGtw9YPwj5L0XW4+sH4W/JRdkL0AJgm1f1X3zvyMUXCl1X1X3zvyMUZS8pOFOAmAqkRVOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkQU4CYCqRBTgJgKpEFOAmAqkli75XmnbzEJxI4bz9kfNBcrrjTUpLN8kg9FvR3lYuW81Lj5DI2DuyVjjvOSioyDLxVtPlCNw7WrIUd3p5iGTN5lx6Sct9619EG5AAjIXuAsHY68skbSzOyx25hPQepZ5QU4CYVSIJNV9V9878jFGUmq+q++d+RijJeUnAiIiiIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIPCQASdwC1CqlM9RJM7i52VtdXnwWXHHYd/BaekGwWemoaG0G83GAVJe8x00B4OI4k9nFVRX231bxBcrPRsgdu24GbL4x1hHxuuGioPB/Kkt8rudYOOy4k7X/7qK11Bsk9zs9rIgtNBDWEb3VFS3ayewbv5KosoL/bamWno46O4UzDIWxDDJW9O7r/APS1lbHpSM0lBcrtNlsQp3Qsz6bnY3D3D3oNdBIORuK22gm5+jilPFzd/fwK1FbNYM+LGZ6zj3q0T0RFBJqvqvvnfkYoyk1X1X3zvyMUZLyk4EREUREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERB4QCCDvBWoVURgqJIXcWuwtwWLvlAahvPwjMjRvH2h80gxlludRa6wVEOHNIxJGeD29RWWrLRS3WF1fYCCcZlpCcOYf7PZ/+HUtbO44KuQTTQSiWCV8Ug4OY4gj2hUZq3afcyPw29PNDSMO9rxiR/YBxUa/Xbw/m6ami8HoYN0MQ/ie1Qaysqqx4fVVEszhwL3E47lYQegEnA3lbbQQ8xRxRHi1u/v4lYixUBe9tVM3DG72A9J61nlKCIiCTVfVffO/IxRlJqvqvvnfkYoyXlJwIiIoiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIghV1sp6ol+DHIfSb094WLlslU0+Q+N478FbCiDXGWascfK5to7XLIUdnghIfM7nnDoIw33LJomgNwwEREBERBJqvqvvnfkYoyk1X1X3zvyMUZLyk4EREUREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERBvQERe4KDxFS98cYy+RjR2nCx1ff7RRD/iK+JvccpgyaLTbjym6UoQ7NQ+Zw+zkfyWt3DlvsUQPg1DM49ZePkmDqy9x2H3LgVz5e5w1wpKFjeouIK1uv5d9QvyIxGwdg/8Aa1IPqHHYV4cDi5o7yvkOr5atVSZAqnNB6nY/msRV8q+pps7dxqB3SFPEfaJkiHnTQjvkCpFRSelW0o++b818O1HKPfpAdu4VR+8KsU2rNQXCTYpn19Q87gGFxz7k8R9zPrrczzrjSD75vzVs3W0jjc6TH/lb868ma1LKdmN+kcR0kb3tHvX1RfuXvUWop6mvvFHVCV0bYXhzHNI5Fo79FBs1PJqLVD4KaKZ8UrXOkZAzLgB9VuPh1x/Iu4aMtT9E2ajt04AnYzMgHIPM7x+WMBWMqsjLkrco2RcVERFsREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERBjWw/wDdtL+Cz9IWRlfhbPu2l/BZ+kLIQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlMqUQRlTlEQY9s+7aX8Fn6QshEQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQf/Z" alt="Tesla Model Y" style="width:100%;height:230px;object-fit:cover;display:block;background:#eee;">
+    <div class="wishlist-btn">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div class="next-arrow">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+
+  <div class="media-chips">
+    <div class="chip">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      83 Photos
+    </div>
+    <div class="chip">
+      <span style="width:8px;height:8px;border-radius:50%;background:conic-gradient(red 0deg,orange 60deg,yellow 120deg,green 180deg,blue 240deg,violet 300deg,red 360deg);flex-shrink:0;"></span>
+      5 Colors
+    </div>
+    <div class="chip">✦ Ask Expert</div>
+    <div class="chip">▶ 3 Videos</div>
+    <div class="chip">🎬 Shorts</div>
+  </div>
+
+  <div class="car-info">
+    <div class="car-title">Tesla Model Y</div>
+    <div class="rating-row">
+      <span class="stars">★</span>
+      <span style="font-size:14px;font-weight:700;">4.6</span>
+      <span class="rating-count">19 Reviews</span>
+      <span class="rate-win">Rate & Win ₹1000</span>
+      <div class="share-icon">
+        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="#555" stroke-width="1.8"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="#555" stroke-width="1.8"/></svg>
+      </div>
+    </div>
+    <div class="price">₹ 59.89 – 73.89 Lakh* <span>Get On-Road Price</span></div>
+    <div class="ex-showroom">*Ex-Showroom Price in <a href="#">New Delhi</a> ✏️</div>
+  </div>
+
+  <div class="cta-row">
+    <button class="btn-primary">View April Offers</button>
+    <button class="btn-whatsapp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.523 5.855L0 24l6.302-1.496A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.003-1.368l-.36-.214-3.733.885.936-3.617-.235-.372A9.761 9.761 0 0 1 2.182 12C2.182 6.58 6.58 2.182 12 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+    </button>
+  </div>
+
+  <div class="festive-banner">🏷️ Hurry up to lock festive offers!</div>
+
+  <!-- UPDATED TEST DRIVE SECTION — no "30 mins", updated subtitle -->
+  <div class="test-drive-section">
+    <div class="test-drive-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#e63312" stroke-width="2">
+        <path d="M3 17h2l1.5-5h11L19 17h2M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0zm10 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/>
+        <path d="M6.5 12l1.5-5h8l1.5 5"/>
+      </svg>
+      <div>
+        <div class="td-header-text">Experience Tesla Model Y</div>
+        <div class="td-header-sub">Free test drive • At your Home / Nearest Showroom</div>
+      </div>
+    </div>
+    <button class="btn-test-drive" onclick="openModal()">🚗 Book a Test Drive</button>
+  </div>
+
+  <div class="section-title">Tesla Model Y Explained in 30 secs</div>
+  <div class="shorts-row">
+    <div class="short-card">
+      <div class="short-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#333"/></svg></div>
+      </div>
+      <div class="short-label">Tesla's India launch...</div>
+    </div>
+    <div class="short-card">
+      <div class="short-thumb" style="background:linear-gradient(135deg,#0f3460,#533483);">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#333"/></svg></div>
+      </div>
+      <div class="short-label">Tesla Model Y –...</div>
+    </div>
+    <div class="short-card">
+      <div class="short-thumb" style="background:linear-gradient(135deg,#1b1b2f,#2c2c54);">
+        <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="#333"/></svg></div>
+      </div>
+      <div class="short-label">Rs. 60 Lakh EV?</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div id="step1">
+      <div class="modal-header">
+        <div class="modal-title">Book Test Drive</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle">Tesla Model Y · Select date & time</div>
+      <div class="step-indicator">
+        <div class="step-dot active">1</div><div class="step-line"></div>
+        <div class="step-dot inactive">2</div><div class="step-line"></div>
+        <div class="step-dot inactive">3</div>
+      </div>
+      <div class="cal-section">
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="prevMonth()">‹</button>
+          <div class="cal-month" id="calMonth"></div>
+          <button class="cal-nav-btn" onclick="nextMonth()">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <div class="time-section">
+        <div class="time-label" id="timeLabel">Available slots</div>
+        <div class="time-grid" id="timeGrid"></div>
+      </div>
+      <div class="sel-summary" id="sel1"><span>📅</span><span id="sel1text"></span></div>
+      <div class="modal-footer">
+        <button class="btn-next" id="btnNext1" onclick="goStep2()" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <div id="step2" style="display:none">
+      <div class="modal-header">
+        <div class="modal-title">Your Details</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle">Fill details to confirm your slot</div>
+      <div class="step-indicator">
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot active">2</div><div class="step-line"></div>
+        <div class="step-dot inactive">3</div>
+      </div>
+      <div class="detail-section">
+        <div class="input-group">
+          <label class="input-label">FULL NAME</label>
+          <input class="input-field" id="userName" type="text" placeholder="Enter your name">
+        </div>
+        <div class="input-group">
+          <label class="input-label">MOBILE NUMBER</label>
+          <input class="input-field" id="userPhone" type="tel" placeholder="+91 98XXXXXXXX">
+        </div>
+        <div class="input-group">
+          <label class="input-label">SELECT LOCATION</label>
+          <div class="location-selector">
+            <div class="loc-card" onclick="selectLoc(this,'Tesla Showroom, Gurugram')">
+              <div class="loc-card-name">Gurugram</div>
+              <div class="loc-card-addr">DLF Cyber City, Sector 25</div>
+            </div>
+            <div class="loc-card" onclick="selectLoc(this,'Tesla Showroom, Connaught Place')">
+              <div class="loc-card-name">Connaught Place</div>
+              <div class="loc-card-addr">N-Block, CP, New Delhi</div>
+            </div>
+            <div class="loc-card" onclick="selectLoc(this,'Tesla Showroom, Aerocity')">
+              <div class="loc-card-name">Aerocity</div>
+              <div class="loc-card-addr">IGI Airport Zone, Delhi</div>
+            </div>
+            <div class="loc-card" onclick="selectLoc(this,'At My Home')">
+              <div class="loc-card-name">At My Home</div>
+              <div class="loc-card-addr">We'll come to you</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-back" onclick="backStep1()">← Back</button>
+        <button class="btn-next" onclick="goStep3()">Review Booking →</button>
+      </div>
+    </div>
+
+    <div id="step3" style="display:none">
+      <div class="modal-header">
+        <div class="modal-title">Confirm Booking</div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-subtitle">Review your test drive details</div>
+      <div class="step-indicator">
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot done">✓</div><div class="step-line done"></div>
+        <div class="step-dot active">3</div>
+      </div>
+      <div class="confirm-section">
+        <div class="confirm-car">
+          <img class="confirm-car-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/wAARCABAAGQDASIAAhEBAxEB/8QAGwABAAIDAQEAAAAAAAAAAAAAAAUGAQIEAwf/xAAuEAABAwMCBQMEAwEAAAAAAAABAAIDBBEFEiExQVFhcQYTIpEUMlKBseHB8P/EABkBAQADAQEAAAAAAAAAAAAAAAABAgMEBf/EAB4RAAMAAgMBAQAAAAAAAAAAAAABAgMREiFBMVH/2gAMAwEAAiEDEQA/APpDlfTwqk3i1jJI3T9U9wMuMi5BgkEXsf8ATnhU2o2tJpJpbJPO7E8q0qlVpKTRqfqaiS0cLCM94Wyp7d3mCh6bYqekcXEn1nJkc76lQtaqWUtLFSU/lxMDGDkBAWt3F3GW9OqoqB7qpXRLJbBqnF7A3K5eWcR7KzbpBNHJLFJ4kbJQ5rm+qADe/eHG3PBXPSMi1ahlL1WKd5M1iqHE5P2gn8Kxq5Wm/qPPLJ5GXe9xJ7nmVRRVc9EJpGhhlbCWF7rB1w7g7vX7K2r5ZqZkJY2R0jiA6zsXA+i1lBHUQOp2MfK5jGuDGtJxgdMAHoqqhG3KymjYqWAXvq/RVNO90b3NxhrdybHp8KnmjqtMbVOpAa7EhcLWNs5BxY/L3KTbFM51VNLy1tG0uc7G6ePCrqp8tW9zpnXJu0bDhVW1MsVm1GJ0D3R1LXMlj2kHA3+oXL1pHVY0DyQ4Bwa4Wv2v1WaRqmoqaSCjpaZ5fK6eSaQj9mNuBb48nHYFVr9R1UwmlqJHh7Q6FjDgMadxgAdVe6JVmXSaOclxfCwxE8lu62eOFk9iVbdTRNJb6mkuBHRRp2ue5lPCyGMbMjaGj2CsXgNJBFguO2arRFhERQCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgP/Z" alt="Tesla Model Y">
+          <div>
+            <div class="confirm-car-name">Tesla Model Y</div>
+            <div class="confirm-car-price">₹59.89 – 73.89 Lakh · Test Drive</div>
+          </div>
+        </div>
+        <div class="confirm-details">
+          <div class="confirm-row"><div class="confirm-icon">📅</div><div><div class="confirm-row-label">Date</div><div class="confirm-row-val" id="cfDate">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">🕐</div><div><div class="confirm-row-label">Time</div><div class="confirm-row-val" id="cfTime">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">📍</div><div><div class="confirm-row-label">Location</div><div class="confirm-row-val" id="cfLoc">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">👤</div><div><div class="confirm-row-label">Name</div><div class="confirm-row-val" id="cfName">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">📱</div><div><div class="confirm-row-label">Mobile</div><div class="confirm-row-val" id="cfPhone">—</div></div></div>
+        </div>
+        <div style="font-size:11px;color:#aaa;text-align:center;margin-top:10px;">By confirming, you agree to be contacted by Tesla/CarDekho</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-back" onclick="backStep2()">← Edit</button>
+        <button class="btn-next" onclick="confirmBooking()">✓ Confirm Booking</button>
+      </div>
+    </div>
+
+    <div id="stepSuccess" style="display:none">
+      <div class="success-screen">
+        <div class="success-circle">✓</div>
+        <div class="success-title">Test Drive Booked!</div>
+        <div class="success-sub">Your slot is confirmed. You'll receive an SMS shortly.</div>
+        <div class="booking-id">Booking ID: <span id="bookingId"></span></div>
+        <div class="confirm-details" style="text-align:left;margin-bottom:16px;">
+          <div class="confirm-row"><div class="confirm-icon">📅</div><div><div class="confirm-row-label">Date & Time</div><div class="confirm-row-val" id="sDate">—</div></div></div>
+          <div class="confirm-row"><div class="confirm-icon">📍</div><div><div class="confirm-row-label">Location</div><div class="confirm-row-val" id="sLoc">—</div></div></div>
+        </div>
+        <button class="add-calendar-btn">+ Add to Calendar</button>
+        <button class="done-btn" onclick="closeModal()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let selDate=null,selTime=null,selLoc='';
+let curYear,curMonth;
+const today=new Date();
+const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const days=['Su','Mo','Tu','We','Th','Fr','Sa'];
+const times=[{t:'10:00 AM',a:true},{t:'10:30 AM',a:true},{t:'11:00 AM',a:false},{t:'11:30 AM',a:true},{t:'12:00 PM',a:true},{t:'12:30 PM',a:false},{t:'02:00 PM',a:true},{t:'02:30 PM',a:true},{t:'03:00 PM',a:true},{t:'04:00 PM',a:false},{t:'04:30 PM',a:true},{t:'05:00 PM',a:true}];
+function initCal(){curYear=today.getFullYear();curMonth=today.getMonth();renderCal();}
+function renderCal(){const g=document.getElementById('calGrid');document.getElementById('calMonth').textContent=months[curMonth]+' '+curYear;g.innerHTML=days.map(d=>`<div class="cal-day-label">${d}</div>`).join('');const first=new Date(curYear,curMonth,1).getDay();const dim=new Date(curYear,curMonth+1,0).getDate();for(let i=0;i<first;i++)g.innerHTML+=`<button class="cal-day empty"></button>`;for(let d=1;d<=dim;d++){const dt=new Date(curYear,curMonth,d);const past=dt<new Date(today.getFullYear(),today.getMonth(),today.getDate());const sun=dt.getDay()===0;const isTod=d===today.getDate()&&curMonth===today.getMonth()&&curYear===today.getFullYear();const isSel=selDate&&selDate.d===d&&selDate.m===curMonth&&selDate.y===curYear;let cls='cal-day';if(past||sun)cls+=' disabled';if(isTod)cls+=' today';if(isSel)cls+=' selected';g.innerHTML+=`<button class="${cls}" ${(past||sun)?'disabled':''} onclick="pickDate(${d},${curMonth},${curYear})">${d}</button>`;}}
+function pickDate(d,m,y){selDate={d,m,y};selTime=null;renderCal();document.getElementById('timeLabel').textContent='Slots for '+months[m]+' '+d+', '+y;renderTimes();updateNext1();}
+function renderTimes(){document.getElementById('timeGrid').innerHTML=times.map((t,i)=>`<button class="time-slot${!t.a?' unavailable':''}" ${!t.a?'disabled':''} onclick="pickTime(${i})">${t.t}</button>`).join('');}
+function pickTime(i){if(!times[i].a)return;selTime=times[i].t;document.querySelectorAll('.time-slot').forEach((el,idx)=>el.classList.toggle('selected',idx===i));updateNext1();}
+function updateNext1(){const btn=document.getElementById('btnNext1');const sum=document.getElementById('sel1');if(selDate&&selTime){btn.disabled=false;document.getElementById('sel1text').textContent=months[selDate.m]+' '+selDate.d+', '+selDate.y+' at '+selTime;sum.classList.add('show');}else{btn.disabled=true;sum.classList.remove('show');}}
+function prevMonth(){curMonth--;if(curMonth<0){curMonth=11;curYear--;}renderCal();}
+function nextMonth(){curMonth++;if(curMonth>11){curMonth=0;curYear++;}renderCal();}
+function selectLoc(el,loc){document.querySelectorAll('.loc-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');selLoc=loc;}
+function openModal(){document.getElementById('modalBg').classList.add('open');document.body.style.overflow='hidden';initCal();}
+function closeModal(){document.getElementById('modalBg').classList.remove('open');document.body.style.overflow='';['step1','step2','step3','stepSuccess'].forEach(id=>{document.getElementById(id).style.display=id==='step1'?'block':'none';});selDate=null;selTime=null;selLoc='';document.getElementById('btnNext1').disabled=true;document.getElementById('sel1').classList.remove('show');}
+function goStep2(){document.getElementById('step1').style.display='none';document.getElementById('step2').style.display='block';}
+function backStep1(){document.getElementById('step2').style.display='none';document.getElementById('step1').style.display='block';}
+function goStep3(){const n=document.getElementById('userName').value.trim();const p=document.getElementById('userPhone').value.trim();if(!n||!p||!selLoc){alert('Please fill all details and select a location');return;}const ds=months[selDate.m]+' '+selDate.d+', '+selDate.y;document.getElementById('cfDate').textContent=ds;document.getElementById('cfTime').textContent=selTime;document.getElementById('cfLoc').textContent=selLoc;document.getElementById('cfName').textContent=n;document.getElementById('cfPhone').textContent=p;document.getElementById('step2').style.display='none';document.getElementById('step3').style.display='block';}
+function backStep2(){document.getElementById('step3').style.display='none';document.getElementById('step2').style.display='block';}
+function confirmBooking(){const ds=months[selDate.m]+' '+selDate.d+', '+selDate.y;document.getElementById('sDate').textContent=ds+' at '+selTime;document.getElementById('sLoc').textContent=selLoc;document.getElementById('bookingId').textContent='TD'+Math.floor(Math.random()*900000+100000);document.getElementById('step3').style.display='none';document.getElementById('stepSuccess').style.display='block';}
+</script>
